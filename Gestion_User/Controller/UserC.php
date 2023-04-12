@@ -40,10 +40,14 @@ class UserC
         $sql = "DELETE FROM user WHERE id = :id";
         $db = config::getConnexion();
         $req = $db->prepare($sql);
-        $req->bindValue(':id', $ide);
+        
 
         try {
-            $req->execute();
+            $req->execute(
+                [
+                    'id'=>$ide
+                ]
+            );
         } catch (Exception $e) {
             die('Error:' . $e->getMessage());
         }
@@ -131,4 +135,56 @@ class UserC
             $e->getMessage();
         }
     }
+    function connexionUser($email,$password)
+    {
+
+        $db=config::getConnexion();
+        $sql="SELECT * FROM user WHERE email='". $email ."' AND pswd='". $password. "'";
+        try{
+            $query=$db->prepare($sql);
+            $query->execute();
+            $count=$query->rowCount();
+            $result = $query->fetch(PDO::FETCH_OBJ);
+            if($count==0)
+            {
+                $message="verifier donnees login";
+            }
+            else{
+                
+                
+                $x=$query->fetch();
+                $message=$x['email'];
+                $_SESSION['id'] = $result->id ;
+                $_SESSION['login'] = $result->login ;
+                $_SESSION['img'] = $result->img ;
+                $_SESSION['ddn'] = $result->ddn ;
+                $_SESSION['email'] = $result->email ;
+                $_SESSION['role']=$result->role;
+					echo "$message";
+
+            }
+
+
+        }
+        catch (Exception $e)
+				{
+					$message= " ".$e->getMessage();
+				}
+
+			return $message;
+
+
+    }
+    function recherche($login)
+        {
+            $sql="SELECT * from user where login=$login";
+            $db = config::getConnexion();
+            try{
+            $req=$db->query($sql);
+            return $req;
+            }
+            catch (Exception $e){
+                die('Erreur: '.$e->getMessage());
+            }
+        }
 }

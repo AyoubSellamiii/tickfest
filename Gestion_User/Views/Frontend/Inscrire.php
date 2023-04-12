@@ -58,7 +58,7 @@ if (isset($_REQUEST['add'])) {
             $UserC->register($user);
             
            
-            header('Location:Inscrire.php');
+            header('Location:Login.php');
           } 
          
       } else {
@@ -142,7 +142,7 @@ if (isset($_REQUEST['add'])) {
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="assets/img/logo.png" alt=""> -->
         <i class="bi bi-camera"></i>
-        <h1>Events</h1>
+        <h1>TickFest</h1>
       </a>
 
       <nav id="navbar" class="navbar">

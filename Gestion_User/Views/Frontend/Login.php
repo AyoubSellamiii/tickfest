@@ -78,7 +78,7 @@ session_start();
       <nav id="navbar" class="navbar">
         <ul>
 
-          <li><a href="about.html">About</a></li>
+        <li><a href="#about">About</a></li>
   
           <li><a href="contact.html" >Contact</a></li>
         </ul>
@@ -136,7 +136,60 @@ session_start();
       <a href="inscrire.php">
       <button  class="btn btn-primary me-2" >S'inscrire</button></a>
     </section><!-- End Contact Section -->
+    <section id="about" class="about">
+  <div class="about-container">
+    <div class="about-section about-section-1">
+      <h2>Qui sommes-nous ?</h2>
+      <p>Nous sommes une équipe passionnée par la musique et les festivals. Notre objectif est de rendre l'achat de billets pour les festivals plus facile et plus accessible aux passionnés du monde entier.</p>
+    </div>
+    <div class="about-section about-section-2">
+      <h2>Nos services</h2>
+      <p>Nous offrons une large gamme de festivals, un service de réservation de logements, une assistance en ligne pour les utilisateurs, des recommandations personnalisées et des partenariats avec des festivals.</p>
+    </div>
+  </div>
+</section>
+<style>
+#about {
+  background-color: #1c1c1c; /* dark grey */
+  color: #fff; /* white */
+  padding: 50px;
+}
 
+#about h2 {
+  font-size: 30px;
+  margin-top: 0;
+}
+
+#about p {
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+.about-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.about-section {
+  flex-basis: calc(50% - 30px);
+  margin: 15px;
+  padding: 30px;
+  background-color: #000;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.about-section-1 h2 {
+  color: #ffea00; /* yellow */
+}
+
+.about-section-2 h2 {
+  color: #00eaff; /* blue */
+}
+  </style>
 </main><!-- End #main -->
 
 <!-- ======= Footer ======= -->

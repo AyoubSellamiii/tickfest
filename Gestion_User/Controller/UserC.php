@@ -104,32 +104,97 @@ class UserC
         }
     }
 
-    function updateUser($user)
+    function updatLogin($id,$login)
     {
         try {
             $db = config::getConnexion();
             $query = $db->prepare(
                 'UPDATE user SET 
-                    login = :login, 
-                    email = :email, 
-                    email = :email, 
-                    ddn = :ddn,
-                    img = :img,
-                    pswd = :pswd,
-                    date_creation=:date_creation,
-                    role =: role
+                    login = :login
+                  
                 WHERE id = :id '
             );
             $query->execute([
-                'id' => $user->getId(),
-                'login' => $User->getLogin(),
-                'email' => $User->getEmail(),
-                'ddn' => $User->getDdn()->format('Y-m-d'),
-                'img' => $User->getImg(),
-                'pswd' => $User->getPswd(),
-                'date_c'=>$User->getDate_creation()->format('Y-m-d H:i:s'),
-                'role'=>$User->getRole()
-            ]);
+                'id' => $id,
+                'login' => $login ]);
+                
+            echo $query->rowCount() . " records UPDATED successfully <br>";
+        } catch (PDOException $e) {
+            $e->getMessage();
+        }
+    }
+    
+    function updateEmail($id,$email)
+    {
+        try {
+            $db = config::getConnexion();
+            $query = $db->prepare(
+                'UPDATE user SET 
+                    email = :email
+                  
+                WHERE id = :id '
+            );
+            $query->execute([
+                'id' => $id,
+                'email' => $email ]);
+                
+            echo $query->rowCount() . " records UPDATED successfully <br>";
+        } catch (PDOException $e) {
+            $e->getMessage();
+        }
+    }
+    function updateDate($id,$ddn)
+    {
+        try {
+            $db = config::getConnexion();
+            $query = $db->prepare(
+                'UPDATE user SET 
+                    ddn = :ddn
+                  
+                WHERE id = :id '
+            );
+            $query->execute([
+                'id' => $id,
+                'ddn' => $ddn->format('Y-m-d') ]);
+                
+            echo $query->rowCount() . " records UPDATED successfully <br>";
+        } catch (PDOException $e) {
+            $e->getMessage();
+        }
+    }
+    function updateImg($id,$img)
+    {
+        try {
+            $db = config::getConnexion();
+            $query = $db->prepare(
+                'UPDATE user SET 
+                    img = :img
+                  
+                WHERE id = :id '
+            );
+            $query->execute([
+                'id' => $id,
+                'img' => $img ]);
+                
+            echo $query->rowCount() . " records UPDATED successfully <br>";
+        } catch (PDOException $e) {
+            $e->getMessage();
+        }
+    }
+    function updatePass($id,$pass)
+    {
+        try {
+            $db = config::getConnexion();
+            $query = $db->prepare(
+                'UPDATE user SET 
+                    pswd = :pswd
+                  
+                WHERE id = :id '
+            );
+            $query->execute([
+                'id' => $id,
+                'pswd' => $pass ]);
+                
             echo $query->rowCount() . " records UPDATED successfully <br>";
         } catch (PDOException $e) {
             $e->getMessage();
@@ -158,6 +223,7 @@ class UserC
                 $_SESSION['login'] = $result->login ;
                 $_SESSION['img'] = $result->img ;
                 $_SESSION['ddn'] = $result->ddn ;
+                $_SESSION['pswd'] = $result->pswd ;
                 $_SESSION['email'] = $result->email ;
                 $_SESSION['role']=$result->role;
 					echo "$message";

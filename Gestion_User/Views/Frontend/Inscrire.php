@@ -148,23 +148,9 @@ if (isset($_REQUEST['add'])) {
       <nav id="navbar" class="navbar">
         <ul>
           <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
+          <li><a href="#about">About</a></li>
           <li class="dropdown"><a href="#"><span>Gallery</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-            <ul>
-              <li><a href="gallery.html">Nature</a></li>
-              <li><a href="gallery.html">People</a></li>
-              <li><a href="gallery.html">Architecture</a></li>
-              <li><a href="gallery.html">Animals</a></li>
-              <li><a href="gallery.html">Sports</a></li>
-              <li><a href="gallery.html">Travel</a></li>
-              <li class="dropdown"><a href="#"><span>Sub Menu</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-                <ul>
-                  <li><a href="#">Sub Menu 1</a></li>
-                  <li><a href="#">Sub Menu 2</a></li>
-                  <li><a href="#">Sub Menu 3</a></li>
-                </ul>
-              </li>
-            </ul>
+           
           </li>
           <li><a href="services.html">Services</a></li>
           <li><a href="contact.html" class="active">Contact</a></li>
@@ -236,7 +222,7 @@ if (isset($_REQUEST['add'])) {
   </div>
 
   <div class="text-center">
-    <button type="submit" name="add" class="btn btn-primary me-2" onclick="return checkPassword()">S'inscrire</button>
+    <button type="submit" id="submit-btn" name="add" class="btn btn-primary me-2" onclick="return checkPassword()">S'inscrire</button>
   </div>
 </form>
           </div><!-- End Contact Form -->
@@ -245,7 +231,102 @@ if (isset($_REQUEST['add'])) {
 
       </div>
     </section><!-- End Contact Section -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
 
+
+var submitBtn = document.getElementById('submit-btn');
+
+
+submitBtn.addEventListener('click', function(event) {
+  var nomInput = document.getElementById('login');
+  var nomValue = nomInput.value;
+
+
+  if (/^[a-zA-Z]+$/.test(nomValue)) {
+    // nom input is valid
+  } else {
+    event.preventDefault();
+    var nomErrorMsg = document.createElement('span');
+    nomErrorMsg.innerText = 'Le login  ne doit contenir que des lettres.';
+    nomInput.parentNode.insertBefore(nomErrorMsg, nomInput.nextSibling);
+  }
+
+
+  
+
+
+  var emailInput = document.getElementById('email');
+  var emailValue = emailInput.value;
+
+
+  if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) {
+    // email input is valid
+  } else {
+    event.preventDefault();
+    var emailErrorMsg = document.createElement('span');
+    emailErrorMsg.innerText = 'Veuillez entrer une adresse email valide.';
+    emailInput.parentNode.insertBefore(emailErrorMsg, emailInput.nextSibling);
+  }
+});
+
+
+});
+</script>
+<section id="about" class="about">
+  <div class="about-container">
+    <div class="about-section about-section-1">
+      <h2>Qui sommes-nous ?</h2>
+      <p>Nous sommes une équipe passionnée par la musique et les festivals. Notre objectif est de rendre l'achat de billets pour les festivals plus facile et plus accessible aux passionnés du monde entier.</p>
+    </div>
+    <div class="about-section about-section-2">
+      <h2>Nos services</h2>
+      <p>Nous offrons une large gamme de festivals, un service de réservation de logements, une assistance en ligne pour les utilisateurs, des recommandations personnalisées et des partenariats avec des festivals.</p>
+    </div>
+  </div>
+</section>
+<style>
+#about {
+  background-color: #1c1c1c; /* dark grey */
+  color: #fff; /* white */
+  padding: 50px;
+}
+
+#about h2 {
+  font-size: 30px;
+  margin-top: 0;
+}
+
+#about p {
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+.about-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.about-section {
+  flex-basis: calc(50% - 30px);
+  margin: 15px;
+  padding: 30px;
+  background-color: #000;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.about-section-1 h2 {
+  color: #ffea00; /* yellow */
+}
+
+.about-section-2 h2 {
+  color: #00eaff; /* blue */
+}
+  </style>
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->

@@ -184,7 +184,7 @@ if (isset($_REQUEST['add'])) {
 </div>
 
 <div class="text-center">
-<button type="submit" name="add" class="btn btn-primary me-2" onclick="return checkPassword()">Ajouter user</button>
+<button type="submit" id="submit-btn" name="add" class="btn btn-primary me-2" onclick="return checkPassword()">Ajouter user</button>
 </div>
 </form>
 </div><!-- End Contact Form -->
@@ -202,6 +202,48 @@ if (isset($_REQUEST['add'])) {
     }
     return true;
   }
+</script>
+<script>
+      document.addEventListener('DOMContentLoaded', function() {
+
+
+var submitBtn = document.getElementById('submit-btn');
+
+
+submitBtn.addEventListener('click', function(event) {
+  var nomInput = document.getElementById('login');
+  var nomValue = nomInput.value;
+
+
+  if (/^[a-zA-Z]+$/.test(nomValue)) {
+    // nom input is valid
+  } else {
+    event.preventDefault();
+    var nomErrorMsg = document.createElement('span');
+    nomErrorMsg.innerText = 'Le login  ne doit contenir que des lettres.';
+    nomInput.parentNode.insertBefore(nomErrorMsg, nomInput.nextSibling);
+  }
+
+
+  
+
+
+  var emailInput = document.getElementById('email');
+  var emailValue = emailInput.value;
+
+
+  if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) {
+    // email input is valid
+  } else {
+    event.preventDefault();
+    var emailErrorMsg = document.createElement('span');
+    emailErrorMsg.innerText = 'Veuillez entrer une adresse email valide.';
+    emailInput.parentNode.insertBefore(emailErrorMsg, emailInput.nextSibling);
+  }
+});
+
+
+});
 </script>
         
                 <footer class="py-4 bg-light mt-auto">

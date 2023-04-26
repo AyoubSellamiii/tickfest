@@ -8,7 +8,7 @@ if(isset($_GET['id']))
     $userC= new UserC();
     $userC->deleteUser($_GET['id']);
 
-    header('Location :index.php');
+    header('Location: index.php');
 }
 
 ?>

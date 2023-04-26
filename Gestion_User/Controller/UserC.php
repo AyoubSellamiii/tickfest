@@ -241,16 +241,17 @@ class UserC
 
 
     }
-    function recherche($login)
+    function Recherche($search)
         {
-            $sql="SELECT * from user where login=$login";
-            $db = config::getConnexion();
-            try{
-            $req=$db->query($sql);
-            return $req;
-            }
-            catch (Exception $e){
-                die('Erreur: '.$e->getMessage());
+            $requete = "select * from user  WHERE login LIKE '%$search%'";
+            $config = config::getConnexion();
+            try {
+                $querry = $config->prepare($requete);
+                $querry->execute();
+                $result = $querry->fetchAll();
+                return $result ;
+            } catch (PDOException $th) {
+                 $th->getMessage();
             }
         }
 }

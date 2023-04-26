@@ -1,6 +1,6 @@
 <?php 
 
-
+session_start();
 include '../../Controller/UserC.php';
 
 require_once '../../model/User.php';
@@ -50,6 +50,7 @@ if (isset($_REQUEST['add'])) {
          
           $UserC = new UserC();
           if (isset($_REQUEST['add'])) {
+            if ($_POST['captcha'] === $_SESSION['code']) {
             $UserC = new UserC();
           $Now = new DateTime('now', new DateTimeZone('Europe/Paris'));
           $date = DateTime::createFromFormat('Y-m-d', $_POST['ddn']);
@@ -59,6 +60,12 @@ if (isset($_REQUEST['add'])) {
             
            
             header('Location:Login.php');
+            }
+            else{
+              
+              header('Location:Inscrire.php');
+             
+            }
           } 
          
       } else {
@@ -66,8 +73,10 @@ if (isset($_REQUEST['add'])) {
           //header('Location:blank.php');
       }
     
-    }}
-
+    }
+  
+  }
+ 
 ?> 
 
 
@@ -186,7 +195,7 @@ if (isset($_REQUEST['add'])) {
 
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
-      
+    <script src="https://hcaptcha.com/1/api.js" async defer></script>
 
         <div class="row justify-content-center mt-4">
 
@@ -217,9 +226,15 @@ if (isset($_REQUEST['add'])) {
   <input required type="file" class="form-control" id="fileToUpload" name="fileToUpload">
 <label for="fileToUpload" class="custom-file-upload">Choisir Image</label>
   </div>
-
   <div class="my-3">
+  <label for="captcha">Enter the code shown in the image:</label>
+    <br>
+    <img src="captcha.php" width="200" height="auto" alt="captcha">
+    <br>
+    <input type="text" name="captcha" id="captcha" required>
   </div>
+
+  
 
   <div class="text-center">
     <button type="submit" id="submit-btn" name="add" class="btn btn-primary me-2" onclick="return checkPassword()">S'inscrire</button>

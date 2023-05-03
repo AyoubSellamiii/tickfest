@@ -1,5 +1,20 @@
 <?php 
+include '../../Controller/UserC.php';
+
+require_once '../../model/User.php';
+
 session_start();
+$userC = new UserC();
+$user = $userC->getUserByEmail($_SESSION['email']);
+
+if(isset($_REQUEST['changepass']))
+{
+
+$userC->updatePass($user['id'],$_POST['pswd']);
+echo "<script>alert('Mot de passe changé avec succés !');</script>";
+header('Location:Login.php');
+
+}
 ?>
 
 <!DOCTYPE html>
@@ -112,23 +127,36 @@ session_start();
     </div><!-- End Page Header -->
 
     <!-- ======= Contact Section ======= -->
+    <?php if($user) { ?>
     <section id="contact" class="contact" >
 
     <div class="row justify-content-center mt-4">
 
           <div class="col-lg-9">
-          <form action="verify.php"  method="post"  >
+          <form action=""  method="post"  >
           <div class="form-group">
-    <input placeholder="Email" type="text" name="email" class="form-control" id="email" required>
-  </div>
-  <div class="form-group">
     <input placeholder="Password" type="password" name="pswd" class="form-control" id="pswd" required>
   </div>
+
+  <div class="form-group">
+    <input placeholder="Confirm Password" type="password" name="confirm_pswd" class="form-control" id="confirm_pswd" required>
+  </div>
   <div class="text-center">
-    <button type="submit" name="connect" class="btn btn-primary me-2" >Se Connecter</button>
+    <button type="submit" name="changepass" class="btn btn-primary me-2" >Changer password</button>
   </div>
 </form>
-<a href="forgetpassword.php" style="color:blue;">Mot de passe oublie ?</a>
+<script>
+  function checkPassword() {
+    var password = document.getElementById("pswd").value;
+    var confirm_password = document.getElementById("confirm_pswd").value;
+
+    if (password != confirm_password) {
+      alert("Le mot de passe et la confirmation ne correspondent pas");
+      return false;
+    }
+    return true;
+  }
+</script>
           </div><!-- End Contact Form -->
 
         </div>
@@ -137,6 +165,7 @@ session_start();
       <a href="inscrire.php">
       <button  class="btn btn-primary me-2" >S'inscrire</button></a>
     </section><!-- End Contact Section -->
+    <?php } ?>
     <section id="about" class="about">
   <div class="about-container">
     <div class="about-section about-section-1">

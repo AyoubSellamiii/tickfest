@@ -1,5 +1,21 @@
 <?php 
+
+
 session_start();
+
+if(isset($_REQUEST['verif']))
+{
+    if($_POST['code']==$_SESSION['code'])
+    {
+        header('Location:changepassword.php');
+    }
+    else{
+
+        echo "<script>alert('code Non valide!');</script>";
+        header('Location:codeverif.php');
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -117,18 +133,16 @@ session_start();
     <div class="row justify-content-center mt-4">
 
           <div class="col-lg-9">
-          <form action="verify.php"  method="post"  >
+          <form action=""  method="post"  >
           <div class="form-group">
-    <input placeholder="Email" type="text" name="email" class="form-control" id="email" required>
+    <input placeholder="ecrire votre code" type="text" name="code" class="form-control" id="code" required>
   </div>
-  <div class="form-group">
-    <input placeholder="Password" type="password" name="pswd" class="form-control" id="pswd" required>
-  </div>
+  
   <div class="text-center">
-    <button type="submit" name="connect" class="btn btn-primary me-2" >Se Connecter</button>
+    <button type="submit" name="verif" class="btn btn-primary me-2" >Submit</button>
   </div>
 </form>
-<a href="forgetpassword.php" style="color:blue;">Mot de passe oublie ?</a>
+
           </div><!-- End Contact Form -->
 
         </div>

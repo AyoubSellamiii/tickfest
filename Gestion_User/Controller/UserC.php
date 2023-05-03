@@ -35,6 +35,24 @@ class UserC
         }
     }
 
+    function getUserByEmail($email)
+    {
+        $requete = "select * from user where email =:email";
+        $config = config::getConnexion();
+        try {
+            $querry = $config->prepare($requete);
+            $querry->execute(
+                [
+                    'email'=>$email
+                ]
+            );
+            $result = $querry->fetch();
+            return $result ;
+        } catch (PDOException $th) {
+             $th->getMessage();
+        }
+    }
+
     function deleteUser($ide)
     {
         $sql = "DELETE FROM user WHERE id = :id";

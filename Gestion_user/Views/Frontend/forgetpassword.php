@@ -1,5 +1,56 @@
 <?php 
+use PHPMailer\PHPMailer\PHPMailer;
+require_once "PHPMailer/src/PHPMailer.php";
+require_once "PHPMailer/src/SMTP.php";
+require_once "PHPMailer/src/Exception.php";
+include '../../Controller/UserC.php';
+
+require_once '../../model/User.php';
+
 session_start();
+if ( isset( $_REQUEST['sendmail'] ) ) 
+{
+   
+    $Email = $_POST['email'];
+    $userC = new UserC();
+    $user = $userC->getUserByEmail($Email);
+    if($user){
+    $code = rand(10000, 99999);
+
+
+$mail=new PHPMailer();
+$mail->IsSMTP();
+$mail ->Host="smtp.gmail.com";
+$mail ->SMTPAuth=true;
+$mail ->Username="forminitn80@gmail.com";
+$mail ->Password='myfwvcqjxkovbexr';
+$mail ->Port=465;
+$mail ->SMTPSecure='ssl';
+$mail->isHTML(true);
+$mail->addAddress($Email);
+$mail->Subject = "Warning ";
+$mail->Body= "hello votre code est :".$code;
+
+if($mail->send())
+	{
+        $_SESSION['code']=$code;
+        $_SESSION['email']=$Email;
+	   echo "Mail envoyé";	
+       header('Location:codeverif.php');
+     
+    }
+	else
+	{
+		echo $mail->ErrorInfo;
+	}
+}
+else {
+
+    echo "<script>alert('Email Non trouvé!');</script>";
+}
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -117,18 +168,16 @@ session_start();
     <div class="row justify-content-center mt-4">
 
           <div class="col-lg-9">
-          <form action="verify.php"  method="post"  >
+          <form action=""  method="post"  >
           <div class="form-group">
     <input placeholder="Email" type="text" name="email" class="form-control" id="email" required>
   </div>
-  <div class="form-group">
-    <input placeholder="Password" type="password" name="pswd" class="form-control" id="pswd" required>
-  </div>
+  
   <div class="text-center">
-    <button type="submit" name="connect" class="btn btn-primary me-2" >Se Connecter</button>
+    <button type="submit" name="sendmail" class="btn btn-primary me-2" >Envoyer mail</button>
   </div>
 </form>
-<a href="forgetpassword.php" style="color:blue;">Mot de passe oublie ?</a>
+
           </div><!-- End Contact Form -->
 
         </div>

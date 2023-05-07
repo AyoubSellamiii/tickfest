@@ -6,17 +6,17 @@ class Reclamation{
     private  $description = null ; 
     private   DateTime $date_creation;
     private   $type = null;
-    private  $status = null ;
+
    
    
-    public function __construct($id_reclamtion=NULL,$sujet,$contact,$description,$date_creation,$type,$status){
+    public function __construct($id_reclamtion=NULL,$sujet,$contact,$description,$date_creation,$type){
         $this->id_reclamtion= $id_reclamtion ; 
         $this->sujet= $sujet;
         $this->contact= $contact ; 
         $this->description= $description ;
         $this->date_creation= $date_creation ;
         $this->type= $type ;
-        $this->status= $status ;
+        
     }
     public function getid_reclamtion(){
         return $this->id_reclamtion ;
@@ -63,13 +63,7 @@ class Reclamation{
       return $this ;
    }
 
-    public function getstatus(){
-        return $this->status ; 
-     }
-    public function setstatus(){
-        $this->status= $status ;
-        return $this ; 
-     }
+  
    
    
     

@@ -50,8 +50,8 @@ class ReclamationC
         }
     function ajouteReclamation($reclamation)
 	{
-		$sql = "INSERT INTO reclamation (id_reclamtion,sujet, contact,description,date_creation,type,status) 
-			VALUES ( :id_reclamtion, :sujet, :contact, :description, :date_creation, :type , :status)";
+		$sql = "INSERT INTO reclamation (id_reclamtion,sujet, contact,description,date_creation,type) 
+			VALUES ( :id_reclamtion, :sujet, :contact, :description, :date_creation, :type )";
 		$db = config::getConnexion();
 		try {
             $query = $db->prepare($sql);
@@ -62,7 +62,7 @@ class ReclamationC
                 'description' => $reclamation->getdescription(),
 				'date_creation' => $reclamation->getdate_creation()->format('Y/m/d'),
                 'type' => $reclamation->gettype(),
-				'status' => $reclamation->getstatus(),
+				
 				
 			]);
 		} catch (Exception $e) {
@@ -97,8 +97,7 @@ function modifierReclamation($reclamation, $id_reclamtion)
                     contact=:contact, 
 					description=:description,
                     date_creation=:date_creation, 
-					type=:type,
-					status=:status
+					type=:type
                    
                 WHERE id_reclamtion= :id_reclamtion '
         );
@@ -109,8 +108,8 @@ function modifierReclamation($reclamation, $id_reclamtion)
 				'contact' => $reclamation->getcontact(),
                 'description' => $reclamation->getdescription(),
 				'date_creation' => $reclamation->getdate_creation()->format('Y/m/d'),
-                'type' => $reclamation->gettype(),
-				'status' => $reclamation->getstatus()
+                'type' => $reclamation->gettype()
+				
 
            
             
